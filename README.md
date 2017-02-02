@@ -6,18 +6,18 @@ This project demonstrates the seamless conversion of Java enums to and from cust
 
 Our code maintains the following three statuses:
 
-    Status.UNKNOWN, Status.ACTIVE_STATE, Status.CANCELLED_BECAUSE
+    Status.UNKNOWN, Status.ACTIVE, Status.CANCELLED_EXPIRED
     
 And we need to synchronise with a JSON-consuming REST service that accepts only the following:
 
-    "???", "Active state", "CANCELLED_BECAUSE"
+    "???", "Active state", "CANCELLED_EXPIRED"
     
 This demonstration shows that no additional logic is required, and that the mapping of `enum <-> String` can be achieved **entirely** using `@JsonProperty("<value>")` mappings:
 
     public enum Status {
         @JsonProperty("???") UNKNOWN,
-        @JsonProperty("Active state") ACTIVE_STATE,
-        CANCELLED_BECAUSE
+        @JsonProperty("Active state") ACTIVE,
+        CANCELLED_EXPIRED
     }
 
 ---

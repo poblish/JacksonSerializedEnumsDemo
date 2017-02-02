@@ -19,7 +19,7 @@ public class SerializationTest {
 
     @Test
     public void testSerializedOutputActive() throws JsonProcessingException {
-        String serd = MAPPER.writeValueAsString( new Container("Foo", Status.ACTIVE_STATE, "Bar") );
+        String serd = MAPPER.writeValueAsString( new Container("Foo", Status.ACTIVE, "Bar") );
         assertThat(serd, equalTo("{\"name\":\"Foo\",\"status\":\"Active state\",\"other\":\"Bar\"}"));
     }
 
@@ -31,15 +31,15 @@ public class SerializationTest {
 
     @Test
     public void testSerializedOutputCancelled() throws JsonProcessingException {
-        String serd = MAPPER.writeValueAsString( new Container("Foo", Status.CANCELLED_BECAUSE, "Bar") );
-        assertThat(serd, equalTo("{\"name\":\"Foo\",\"status\":\"CANCELLED_BECAUSE\",\"other\":\"Bar\"}"));
+        String serd = MAPPER.writeValueAsString( new Container("Foo", Status.CANCELLED_EXPIRED, "Bar") );
+        assertThat(serd, equalTo("{\"name\":\"Foo\",\"status\":\"CANCELLED_EXPIRED\",\"other\":\"Bar\"}"));
     }
 
     @Test
     public void testDeserActive() throws IOException {
         Container ctr = MAPPER.readValue("{\"name\":\"Foo\",\"status\":\"Active state\",\"other\":\"Bar\"}", Container.class);
         assertThat(ctr.getName(), equalTo("Foo"));
-        assertThat(ctr.getStatus(), equalTo(Status.ACTIVE_STATE));
+        assertThat(ctr.getStatus(), equalTo(Status.ACTIVE));
         assertThat(ctr.getOther(), equalTo("Bar"));
     }
 
