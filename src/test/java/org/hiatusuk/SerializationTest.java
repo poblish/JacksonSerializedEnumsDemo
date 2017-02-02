@@ -2,13 +2,16 @@ package org.hiatusuk;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.startsWith;
 
 import java.io.IOException;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 
 public class SerializationTest {
 
@@ -52,5 +55,16 @@ public class SerializationTest {
     public void testDeserWithDefaultedStatus() throws IOException {
         Container ctr = MAPPER.readValue("{\"name\":\"Foo\",\"other\":\"Bar\"}", Container.class);
         assertThat(ctr.getStatus(), equalTo(Status.UNKNOWN));
+    }
+
+    @Test
+    public void testDeserWithUnmappableEnumValue() throws IOException {
+        try {
+            MAPPER.readValue("{\"name\":\"Foo\",\"status\":\"xxxxxxxx\",\"other\":\"Bar\"}", Container.class);
+            Assert.fail("Shoould have failed");
+        }
+        catch (InvalidFormatException e) {
+            assertThat(e.getMessage(), startsWith("Can not deserialize value"));
+        }
     }
 }

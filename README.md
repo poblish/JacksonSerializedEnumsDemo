@@ -1,6 +1,6 @@
 # Jackson Serialized Enums
 
-This project demonstrates the seamless conversion of Java enums to and from custom String representations, with the minimum of extra configuration, using [Jackson 2.x](https://github.com/FasterXML/jackson-databind).
+This project demonstrates the seamless conversion of Java enums to and from custom `String` representations, with the minimum of extra configuration, using [Jackson 2.x](https://github.com/FasterXML/jackson-databind).
 
 ---
 
@@ -20,4 +20,8 @@ This demonstration shows that no additional logic is required, and that the mapp
         CANCELLED_BECAUSE
     }
 
+---
+
 No custom setters or getters, and no special constructors, are required.
+
+Type-safety is maintained: you don't have to replace your enum type with a `String` inside your DTO, and any attempt to deserialise an invalid String value will fail, rather than being defaulted etc.
