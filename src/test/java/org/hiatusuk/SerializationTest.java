@@ -64,7 +64,7 @@ public class SerializationTest {
             Assert.fail("Shoould have failed");
         }
         catch (InvalidFormatException e) {
-            assertThat(e.getMessage(), startsWith("Can not deserialize value"));
+            assertThat(e.getMessage(), startsWith("Cannot deserialize value"));
         }
     }
 }
